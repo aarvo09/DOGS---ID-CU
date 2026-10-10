@@ -296,6 +296,39 @@ async def admin_create_dog_post(
     )
 
 
+@router.post("/admin/dogs/update")
+async def admin_update_dog_post_general(
+    request: Request,
+    dog_id: int = Form(...),
+    name: str = Form(...),
+    gender: str = Form(...),
+    approx_age: str = Form(...),
+    description: Optional[str] = Form(None),
+    photo_url: Optional[str] = Form(None),
+    status_val: str = Form("ACTIVE"),
+    health_status: Optional[str] = Form(None),
+    vaccination_status: Optional[str] = Form(None),
+    sterilization_status: Optional[str] = Form(None),
+    health_notes: Optional[str] = Form(None),
+    next_url: Optional[str] = Form(None),
+):
+    return await admin_update_dog_post(
+        request=request,
+        dog_id=dog_id,
+        name=name,
+        gender=gender,
+        approx_age=approx_age,
+        description=description,
+        photo_url=photo_url,
+        status_val=status_val,
+        health_status=health_status,
+        vaccination_status=vaccination_status,
+        sterilization_status=sterilization_status,
+        health_notes=health_notes,
+        next_url=next_url,
+    )
+
+
 @router.post("/admin/dogs/{dog_id}/update")
 async def admin_update_dog_post(
     request: Request,

@@ -309,15 +309,27 @@ def render_admin_dashboard_page(
         </tr>
         """
 
+    # Prepare unassigned tag options and dog select options
+    unassigned_tag_options = ""
+    for t in tags:
+        is_assigned = (t.get("assigned_dog_id") is not None) or (t.get("dog_id") is not None)
+        if t.get("status") == "ACTIVE" and not is_assigned:
+            unassigned_tag_options += f'<option value="{t["id"]}">{html.escape(t["tag_uid"])} (Collar Tag)</option>'
+
+    dog_select_options = ""
+    for d in dogs:
+        dog_select_options += f'<option value="{d["id"]}">{html.escape(d["name"])} ({html.escape(d["dog_uid"])})</option>'
+
     # Generate Tag Rows
     tag_rows_html = ""
     for t in tags:
         t_id = t["id"]
         t_uid = html.escape(t["tag_uid"])
         t_status = html.escape(t["status"])
-        t_assigned_dog = html.escape(t.get("dog_name") or t.get("dog_uid") or "Unassigned")
-        t_assigned = t.get("dog_id") is not None
+        t_assigned_dog = html.escape(t.get("assigned_dog_name") or t.get("dog_name") or t.get("assigned_dog_uid") or t.get("dog_uid") or "Unassigned")
+        t_assigned = (t.get("assigned_dog_id") is not None) or (t.get("dog_id") is not None)
         badge_cls = "badge-green" if t_status == "ACTIVE" else "badge-red"
+        assign_btn_html = f'<button type="button" class="btn-sm btn-primary" onclick="openAssignTagModal({t_id}, \'{t_uid}\')">{p_emoji("pencil", "Assign")} Assign to Dog</button> ' if (not t_assigned and t_status == "ACTIVE") else ""
 
         tag_rows_html += f"""
         <tr class="data-row">
@@ -331,6 +343,7 @@ def render_admin_dashboard_page(
                 {t_assigned_dog if t_assigned else '<em style="color: #64748b;">Ready to assign</em>'}
             </td>
             <td style="text-align: right;">
+                {assign_btn_html}
                 <a href="/api/admin/tags/{t_id}/printable-badge" target="_blank" class="btn-sm btn-outline">{p_emoji('printer', 'Print')} Print Badge</a>
                 <a href="/t/{t_uid}" target="_blank" class="btn-sm btn-secondary">{p_emoji('lightning', 'Test Scan')} Test Scan</a>
             </td>
@@ -937,6 +950,16 @@ def render_admin_dashboard_page(
                     <input type="text" name="name" required placeholder="e.g. Rocky">
                 </div>
                 <div class="input-group">
+                    <label>Link Physical Collar Tag (Printed QR)</label>
+                    <select name="assign_tag_id">
+                        <option value="">-- No collar tag yet (assign later) --</option>
+                        {unassigned_tag_options}
+                    </select>
+                    <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">
+                        Select one of your printed collar tags to link this dog immediately.
+                    </div>
+                </div>
+                <div class="input-group">
                     <label>Gender *</label>
                     <select name="gender">
                         <option value="Male">Male</option>
@@ -949,8 +972,16 @@ def render_admin_dashboard_page(
                     <input type="text" name="approx_age" required placeholder="e.g. 2 years">
                 </div>
                 <div class="input-group">
-                    <label>Photo URL (or choose /static/assets/dogs/...)</label>
-                    <input type="text" name="photo_url" placeholder="/static/assets/dogs/bruno.png" value="/static/assets/dogs/bruno.png">
+                    <label>Dog Photo</label>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+                        <input type="text" name="photo_url" id="reg-dog-photo" placeholder="/static/assets/dogs/bruno.png" value="/static/assets/dogs/bruno.png" style="flex: 1;">
+                        <label class="btn-sm btn-secondary" style="cursor: pointer; margin: 0; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">
+                            📷 Choose / Take Photo
+                            <input type="file" accept="image/*" style="display: none;" onchange="handleAdminPhotoUpload(this, 'reg-dog-photo', 'reg-photo-preview', 'reg-photo-status')">
+                        </label>
+                    </div>
+                    <div id="reg-photo-status" style="font-size: 12px; color: #10b981; margin-bottom: 6px;"></div>
+                    <img id="reg-photo-preview" src="/static/assets/dogs/bruno.png" style="width: 72px; height: 72px; object-fit: cover; border-radius: 8px; border: 1px solid #334155; display: block;" alt="Preview" />
                 </div>
                 <div class="input-group">
                     <label>Personality / Quote</label>
@@ -997,14 +1028,47 @@ def render_admin_dashboard_page(
                     </select>
                 </div>
                 <div class="input-group">
-                    <label>Photo URL</label>
-                    <input type="text" name="photo_url" id="edit-dog-photo">
+                    <label>Dog Photo</label>
+                    <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+                        <input type="text" name="photo_url" id="edit-dog-photo" style="flex: 1;">
+                        <label class="btn-sm btn-secondary" style="cursor: pointer; margin: 0; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">
+                            📷 Choose / Take Photo
+                            <input type="file" accept="image/*" style="display: none;" onchange="handleAdminPhotoUpload(this, 'edit-dog-photo', 'edit-photo-preview', 'edit-photo-status')">
+                        </label>
+                    </div>
+                    <div id="edit-photo-status" style="font-size: 12px; color: #10b981; margin-bottom: 6px;"></div>
+                    <img id="edit-photo-preview" src="" style="width: 72px; height: 72px; object-fit: cover; border-radius: 8px; border: 1px solid #334155; display: none;" alt="Preview" />
                 </div>
                 <div class="input-group">
                     <label>Personality / Quote</label>
                     <input type="text" name="description" id="edit-dog-desc">
                 </div>
                 <button type="submit" class="btn-sm btn-primary" style="width: 100%; padding: 12px; font-size: 14px;">Save Changes ➔</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Assign Collar Tag -->
+    <div class="modal-overlay" id="assign-tag-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 style="font-size: 18px; font-weight: 800;">Assign Collar Tag to Dog</h3>
+                <button type="button" class="modal-close" onclick="closeModal('assign-tag-modal')">✕</button>
+            </div>
+            <form method="POST" action="/admin/tags/assign">
+                <input type="hidden" name="tag_id" id="assign-modal-tag-id">
+                <div class="input-group">
+                    <label>Selected Collar Tag</label>
+                    <input type="text" id="assign-modal-tag-uid" readonly style="background: #0f172a; color: #94a3b8;">
+                </div>
+                <div class="input-group">
+                    <label>Assign to Campus Dog *</label>
+                    <select name="dog_id" required>
+                        <option value="">-- Choose Dog --</option>
+                        {dog_select_options}
+                    </select>
+                </div>
+                <button type="submit" class="btn-sm btn-primary" style="width: 100%; padding: 12px; font-size: 14px;">Confirm Tag Assignment ➔</button>
             </form>
         </div>
     </div>
@@ -1021,6 +1085,12 @@ def render_admin_dashboard_page(
             document.getElementById('register-dog-modal').classList.add('active');
         }}
 
+        function openAssignTagModal(tagId, tagUid) {{
+            document.getElementById('assign-modal-tag-id').value = tagId;
+            document.getElementById('assign-modal-tag-uid').value = tagUid;
+            document.getElementById('assign-tag-modal').classList.add('active');
+        }}
+
         function openEditDogModal(id, name, uid, gender, age, status, photo, desc) {{
             document.getElementById('edit-dog-id').value = id;
             document.getElementById('edit-dog-name').value = name;
@@ -1029,7 +1099,45 @@ def render_admin_dashboard_page(
             document.getElementById('edit-dog-status').value = status;
             document.getElementById('edit-dog-photo').value = photo;
             document.getElementById('edit-dog-desc').value = desc || '';
+            const prev = document.getElementById('edit-photo-preview');
+            if (photo) {{
+                prev.src = photo;
+                prev.style.display = 'block';
+            }} else {{
+                prev.style.display = 'none';
+            }}
             document.getElementById('edit-dog-modal').classList.add('active');
+        }}
+
+        async function handleAdminPhotoUpload(input, targetInputId, previewImgId, statusId) {{
+            if (!input.files || !input.files[0]) return;
+            const file = input.files[0];
+            const statusEl = document.getElementById(statusId);
+            if (statusEl) statusEl.textContent = '⏳ Uploading dog photo...';
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            try {{
+                const res = await fetch('/api/upload', {{ method: 'POST', body: formData }});
+                const data = await res.json();
+                if (res.ok && data.url) {{
+                    document.getElementById(targetInputId).value = data.url;
+                    if (previewImgId) {{
+                        const prev = document.getElementById(previewImgId);
+                        if (prev) {{
+                            prev.src = data.url;
+                            prev.style.display = 'block';
+                        }}
+                    }}
+                    if (statusEl) statusEl.textContent = '✓ Photo uploaded successfully!';
+                }} else {{
+                    alert('Upload failed: ' + (data.detail || 'Could not upload image'));
+                    if (statusEl) statusEl.textContent = '';
+                }}
+            }} catch (err) {{
+                alert('Network error during upload: ' + err.message);
+                if (statusEl) statusEl.textContent = '';
+            }}
         }}
 
         function closeModal(id) {{

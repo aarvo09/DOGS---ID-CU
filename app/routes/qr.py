@@ -6,7 +6,7 @@ from app.models import QRResolveResponse
 
 router = APIRouter(tags=["QR Resolution"])
 
-def render_qr_error_html(title: str, message: str, status_code: int) -> HTMLResponse:
+def render_qr_error_html(title: str, message: str, status_code: int, action_button_html: str = "") -> HTMLResponse:
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,6 +87,7 @@ def render_qr_error_html(title: str, message: str, status_code: int) -> HTMLResp
         <div class="badge">Chandigarh University Dog Registry</div>
         <h1>{title}</h1>
         <p>{message}</p>
+        {action_button_html}
         <div class="footer-note">
             If you found an injured or distressed campus dog, please notify campus security or administration immediately.
         </div>
@@ -178,8 +179,15 @@ async def resolve_qr_tag(tag_uid: str, request: Request, format: Optional[str] =
                 )
             return render_qr_error_html(
                 title="THIS TAG IS NOT CURRENTLY ASSIGNED",
-                message="This tag has been generated in the system but is not currently assigned to any campus dog.",
+                message=f"Collar Tag ({clean_tag_uid}) is registered in the system but is not currently assigned to any campus dog.",
                 status_code=status.HTTP_404_NOT_FOUND,
+                action_button_html=f"""
+                <div style="margin: 18px 0;">
+                    <a href="/admin?tab=tags" style="display: inline-block; background: #c41e3a; color: #ffffff; text-decoration: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 14px;">
+                        Staff / Admin? Assign Tag {clean_tag_uid} ➔
+                    </a>
+                </div>
+                """
             )
 
         # Step 6: Resolve user to dog profile

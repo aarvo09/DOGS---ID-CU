@@ -233,8 +233,16 @@ def render_handwritten_dog_profile(dog: Dict[str, Any], admin_user: Optional[Dic
                     </div>
 
                     <div class="handwritten-input-group">
-                        <label class="input-label" for="edit-dog-photo">Photo URL:</label>
-                        <input type="text" id="edit-dog-photo" name="photo_url" class="handwritten-input" value="{photo_url}" placeholder="/static/images/..." />
+                        <label class="input-label" for="edit-dog-photo">Dog Photo:</label>
+                        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+                            <input type="text" id="edit-dog-photo" name="photo_url" class="handwritten-input" value="{photo_url}" placeholder="/static/images/..." style="flex: 1;" />
+                            <label class="btn-handdrawn btn-handdrawn--accent" style="cursor: pointer; margin: 0; white-space: nowrap; padding: 6px 12px; font-size: 13px; display: inline-flex; align-items: center; gap: 4px;">
+                                📷 Choose / Take Photo
+                                <input type="file" accept="image/*" style="display: none;" onchange="handleInFieldPhotoUpload(this)" />
+                            </label>
+                        </div>
+                        <div id="infield-photo-status" style="font-size: 12px; color: #047857; margin-bottom: 6px; font-weight: 700;"></div>
+                        <img id="infield-photo-preview" src="{photo_url}" style="width: 72px; height: 72px; object-fit: cover; border-radius: 8px; border: 1.5px solid var(--border-rough); display: block;" alt="Dog Preview" />
                     </div>
 
                     <div class="handwritten-input-group">
@@ -752,6 +760,33 @@ def render_handwritten_dog_profile(dog: Dict[str, Any], admin_user: Optional[Dic
 
     <script>
         window.CURRENT_DOG_UID = "{clean_uid}";
+        async function handleInFieldPhotoUpload(input) {{
+            if (!input.files || !input.files[0]) return;
+            const file = input.files[0];
+            const statusEl = document.getElementById('infield-photo-status');
+            if (statusEl) statusEl.textContent = '⏳ Uploading dog photo...';
+            const formData = new FormData();
+            formData.append('file', file);
+            try {{
+                const res = await fetch('/api/upload', {{ method: 'POST', body: formData }});
+                const data = await res.json();
+                if (res.ok && data.url) {{
+                    document.getElementById('edit-dog-photo').value = data.url;
+                    const prev = document.getElementById('infield-photo-preview');
+                    if (prev) {{
+                        prev.src = data.url;
+                        prev.style.display = 'block';
+                    }}
+                    if (statusEl) statusEl.textContent = '✓ Photo uploaded!';
+                }} else {{
+                    alert('Upload failed: ' + (data.detail || 'Could not upload image'));
+                    if (statusEl) statusEl.textContent = '';
+                }}
+            }} catch (err) {{
+                alert('Network error during upload: ' + err.message);
+                if (statusEl) statusEl.textContent = '';
+            }}
+        }}
     </script>
     <script src="/static/js/dog_profile.js"></script>
 
