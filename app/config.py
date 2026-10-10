@@ -12,7 +12,7 @@ UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 # Application Configuration
 APP_NAME = "Chandigarh University - Campus Dog Digital Identity System"
 APP_VERSION = "1.0.0"
-BASE_URL = os.getenv("BASE_URL", "http://localhost:8000")
+BASE_URL = os.getenv("BASE_URL", os.getenv("RENDER_EXTERNAL_URL", "http://localhost:8000"))
 
 # Database Configuration
 DATABASE_PATH = os.getenv("DATABASE_PATH", str(DATA_DIR / "dogcu.db"))
