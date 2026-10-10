@@ -1,0 +1,854 @@
+/* ==========================================================================
+   CHANDIGARH UNIVERSITY — CAMPUS DOG DIGITAL IDENTITY SYSTEM (DOGCU)
+   HANDMADE VISUAL LANGUAGE DESIGN SYSTEM
+   Centralized Design Tokens & Controlled Imperfection Utilities
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GOOGLE FONTS IMPORT
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Patrick+Hand&family=Architects+Daughter&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');
+
+/* --------------------------------------------------------------------------
+   2. CENTRALIZED DESIGN TOKENS (:root)
+   -------------------------------------------------------------------------- */
+:root {
+  /* ------------------------------------------------------------------------
+     COLORS
+     ------------------------------------------------------------------------ */
+  /* Primary Identity Red (Chandigarh University Crimson) */
+  --cu-red: #c41e3a;
+  --cu-red-marker: #dc2626;        /* High-energy marker red */
+  --cu-red-soft: #fee2e2;          /* Soft red highlighter wash */
+  --cu-red-dark: #991b1b;          /* Deep stamped red */
+
+  /* Charcoal / Deep Ink */
+  --ink: #1f1b18;                  /* Artist charcoal / fountain pen ink */
+  --ink-pencil: #44403c;           /* Medium 2B graphite pencil */
+  --ink-muted: #78716c;            /* Soft faded ink */
+  --ink-faint: #a8a29e;            /* Very light pencil sketch line */
+
+  /* Sketchbook Paper */
+  --paper: #faf7ed;                /* Warm off-white sketchbook base */
+  --paper-cream: #fffdf7;          /* Fresh drawing sheet */
+  --paper-kraft: #eddcc4;          /* Warm cardboard / craft notebook tone */
+  --paper-yellow: #fef08a;         /* Sticky note yellow */
+  --paper-yellow-warm: #fde047;
+
+  /* Aged / Desk Paper */
+  --paper-dark: #ece6d8;           /* Wooden desk / kraft desk mat background */
+
+  /* Foliage / Field Green */
+  --muted-green: #4d7c5f;          /* Muted sage / field vegetation green */
+  --muted-green-light: #dcfce7;    /* Soft pastel green sticker wash */
+  --muted-green-dark: #15803d;     /* Deep verified badge green */
+
+  /* Pencil / Neutral Gray */
+  --soft-gray: #e2ddd5;            /* Neutral warm paper gray / pencil wash */
+  --soft-gray-light: #f3f0ea;      /* Very subtle background wash */
+  --soft-gray-dark: #c5beb1;       /* Border / separator warm gray */
+
+  /* Translucent Washi Tape */
+  --tape-color: rgba(254, 243, 199, 0.78);
+  --tape-border: rgba(217, 180, 130, 0.45);
+  --tape-kraft: rgba(224, 195, 154, 0.82);
+
+  /* ------------------------------------------------------------------------
+     TYPOGRAPHY
+     ------------------------------------------------------------------------ */
+  /* Functional body font: clear, highly legible for telemetry, IDs, forms, data */
+  --font-body: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-functional: var(--font-body);
+  --font-sans: var(--font-body);
+
+  /* Handwritten / Display font hierarchy */
+  --font-display: 'Caveat', cursive, sans-serif;                /* High-character headings & hero titles */
+  --font-handwritten: 'Patrick Hand', cursive, sans-serif;      /* Field notebook notes, buttons, labels */
+  --font-annotation: 'Architects Daughter', cursive, sans-serif;/* Quick marginalia, sketches, callout notes */
+  --font-hand: var(--font-handwritten);
+  --font-script: var(--font-display);
+  --font-note: var(--font-annotation);
+
+  /* Modular Font Scale */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 2rem;       /* 32px */
+  --font-size-4xl: 2.75rem;    /* 44px */
+  --font-size-5xl: 3.75rem;    /* 60px */
+
+  /* Line Heights */
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* ------------------------------------------------------------------------
+     SPACING SYSTEM (Geometric 4px / 8px scale)
+     ------------------------------------------------------------------------ */
+  --space-3xs: 0.125rem;  /* 2px */
+  --space-2xs: 0.25rem;   /* 4px */
+  --space-xs: 0.5rem;     /* 8px */
+  --space-sm: 0.75rem;    /* 12px */
+  --space-md: 1rem;       /* 16px */
+  --space-lg: 1.5rem;     /* 24px */
+  --space-xl: 2rem;       /* 32px */
+  --space-2xl: 2.5rem;    /* 40px */
+  --space-3xl: 3rem;      /* 48px */
+  --space-4xl: 4rem;      /* 64px */
+
+  /* Numeric Aliases */
+  --space-1: var(--space-2xs);
+  --space-2: var(--space-xs);
+  --space-3: var(--space-sm);
+  --space-4: var(--space-md);
+  --space-6: var(--space-lg);
+  --space-8: var(--space-xl);
+  --space-10: var(--space-2xl);
+  --space-12: var(--space-3xl);
+  --space-16: var(--space-4xl);
+
+  /* ------------------------------------------------------------------------
+     HANDMADE GEOMETRY & SKETCH TOKENS (Controlled Imperfection)
+     ------------------------------------------------------------------------ */
+  /* Controlled Organic Asymmetry Radii */
+  --radius-rough-1: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  --radius-rough-2: 185px 25px 165px 25px / 25px 165px 25px 185px;
+  --radius-rough-3: 15px 255px 15px 225px / 225px 15px 255px 15px;
+  --radius-rough-card: 22px 4px 18px 6px / 6px 19px 5px 24px;
+  --radius-rough-pill: 255px 25px 225px 25px / 25px 225px 25px 255px;
+  --radius-circle-imperfect: 48% 52% 49% 51% / 53% 47% 53% 47%;
+  --radius-circle-wobbly: 54% 46% 48% 52% / 45% 55% 45% 55%;
+
+  /* Rough Border Strokes */
+  --border-rough: 2px solid var(--ink);
+  --border-rough-thick: 3px solid var(--ink);
+  --border-rough-thin: 1.5px solid var(--ink);
+  --border-rough-dashed: 2px dashed var(--ink);
+
+  /* Sketch Drop Shadows */
+  --shadow-sketch-sm: 2px 2px 0px var(--ink);
+  --shadow-sketch: 3px 4px 0px var(--ink);
+  --shadow-sketch-lg: 5px 6px 0px var(--ink);
+  --shadow-sketch-double: 2px 2px 0px var(--soft-gray-dark), 4px 5px 0px var(--ink);
+  --shadow-sketch-red: 3px 4px 0px var(--cu-red);
+  --shadow-paper: 0 10px 25px -5px rgba(60, 48, 30, 0.12), 0 8px 10px -6px rgba(60, 48, 30, 0.08);
+
+  /* Controlled Rotations (Micro-angles for authentic feel without chaos) */
+  --rot-slight-left: -1.2deg;
+  --rot-slight-right: 1.2deg;
+  --rot-subtle-left: -0.6deg;
+  --rot-subtle-right: 0.6deg;
+  --rot-pronounced-left: -2.5deg;
+  --rot-pronounced-right: 2.5deg;
+
+  /* Backward Compatibility Aliases */
+  --ink-black: var(--ink);
+  --ink-border: var(--ink);
+  --paper-warm: var(--paper);
+  --paper-desk: var(--paper-dark);
+  --sage-green: var(--muted-green-light);
+  --sage-green-dark: var(--muted-green-dark);
+  --sketch-border: var(--border-rough);
+  --sketch-border-thick: var(--border-rough-thick);
+  --radius-hand-1: var(--radius-rough-1);
+  --radius-hand-2: var(--radius-rough-2);
+  --radius-hand-3: var(--radius-rough-3);
+  --radius-sticker: var(--radius-rough-pill);
+}
+
+/* --------------------------------------------------------------------------
+   3. TYPOGRAPHY UTILITIES
+   -------------------------------------------------------------------------- */
+.font-body, .font-functional {
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-handwritten {
+  font-family: var(--font-handwritten);
+}
+
+.font-annotation {
+  font-family: var(--font-annotation);
+}
+
+/* Text Size Utilities */
+.text-xs { font-size: var(--font-size-xs); }
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+.text-4xl { font-size: var(--font-size-4xl); }
+.text-5xl { font-size: var(--font-size-5xl); }
+
+/* Text Color Utilities */
+.text-ink { color: var(--ink); }
+.text-cu-red { color: var(--cu-red); }
+.text-muted-green { color: var(--muted-green); }
+.text-pencil { color: var(--ink-pencil); }
+.text-muted { color: var(--ink-muted); }
+
+/* --------------------------------------------------------------------------
+   4. SPACING UTILITIES
+   -------------------------------------------------------------------------- */
+.p-xs { padding: var(--space-xs); }
+.p-sm { padding: var(--space-sm); }
+.p-md { padding: var(--space-md); }
+.p-lg { padding: var(--space-lg); }
+.p-xl { padding: var(--space-xl); }
+
+.px-sm { padding-left: var(--space-sm); padding-right: var(--space-sm); }
+.px-md { padding-left: var(--space-md); padding-right: var(--space-md); }
+.py-xs { padding-top: var(--space-xs); padding-bottom: var(--space-xs); }
+.py-sm { padding-top: var(--space-sm); padding-bottom: var(--space-sm); }
+.py-md { padding-top: var(--space-md); padding-bottom: var(--space-md); }
+
+.m-0 { margin: 0; }
+.mb-xs { margin-bottom: var(--space-xs); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+
+.gap-xs { gap: var(--space-xs); }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+.gap-xl { gap: var(--space-xl); }
+
+/* ==========================================================================
+   5. THE 10 REUSABLE HANDMADE EFFECTS & UTILITIES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   EFFECT 1: ROUGH BORDERS
+   Controlled wobbly ink outlines that feel hand-drawn, not mechanical.
+   -------------------------------------------------------------------------- */
+.rough-border {
+  border: var(--border-rough);
+  border-radius: var(--radius-rough-1);
+}
+
+.rough-border-thick {
+  border: var(--border-rough-thick);
+  border-radius: var(--radius-rough-2);
+}
+
+.rough-border-thin {
+  border: var(--border-rough-thin);
+  border-radius: var(--radius-rough-card);
+}
+
+.rough-border-dashed {
+  border: var(--border-rough-dashed);
+  border-radius: var(--radius-rough-card);
+}
+
+/* Individual curvature variants */
+.rough-border-1 {
+  border: var(--border-rough);
+  border-radius: var(--radius-rough-1);
+}
+.rough-border-2 {
+  border: var(--border-rough);
+  border-radius: var(--radius-rough-2);
+}
+.rough-border-3 {
+  border: var(--border-rough);
+  border-radius: var(--radius-rough-3);
+}
+
+/* --------------------------------------------------------------------------
+   EFFECT 2: MARKER UNDERLINE
+   Authentic marker or ink swipe with natural tapering and slight tilt.
+   Multiline-safe using box-decoration-break.
+   -------------------------------------------------------------------------- */
+.marker-underline {
+  position: relative;
+  display: inline;
+  text-decoration: none;
+  background-image: linear-gradient(
+    178deg,
+    transparent 0%,
+    transparent 78%,
+    var(--cu-red) 78%,
+    var(--cu-red-marker) 92%,
+    transparent 96%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding-bottom: 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.marker-underline--red {
+  background-image: linear-gradient(
+    178deg,
+    transparent 0%,
+    transparent 76%,
+    var(--cu-red) 76%,
+    var(--cu-red-marker) 94%,
+    transparent 98%
+  );
+}
+
+.marker-underline--yellow {
+  background-image: linear-gradient(
+    178deg,
+    transparent 0%,
+    transparent 72%,
+    rgba(253, 224, 71, 0.9) 72%,
+    rgba(250, 204, 21, 0.95) 94%,
+    transparent 98%
+  );
+}
+
+.marker-underline--green {
+  background-image: linear-gradient(
+    178deg,
+    transparent 0%,
+    transparent 76%,
+    rgba(77, 124, 95, 0.85) 76%,
+    rgba(34, 197, 94, 0.9) 94%,
+    transparent 98%
+  );
+}
+
+.marker-underline--ink {
+  background-image: linear-gradient(
+    178deg,
+    transparent 0%,
+    transparent 78%,
+    var(--ink) 78%,
+    var(--ink-pencil) 94%,
+    transparent 98%
+  );
+}
+
+/* Wavy freehand marker underline */
+.marker-underline-wavy {
+  text-decoration: underline wavy var(--cu-red-marker);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2.5px;
+}
+
+/* Block marker stroke bar */
+.marker-stroke-bar {
+  display: block;
+  height: 5px;
+  background: var(--cu-red-marker);
+  border-radius: 999px;
+  transform: rotate(-0.5deg);
+  margin-top: var(--space-2xs);
+}
+
+/* --------------------------------------------------------------------------
+   EFFECT 3: PAPER TEXTURE
+   Tactile paper sheet textures (sketchbook grain, kraft, grid, lined).
+   Created with pure performant CSS without heavy raster dependencies.
+   -------------------------------------------------------------------------- */
+.paper-texture {
+  background-color: var(--paper);
+  background-image: 
+    radial-gradient(var(--ink-faint) 0.5px, transparent 0.5px),
+    linear-gradient(rgba(0,0,0,0.015) 1px, transparent 1px);
+  background-size: 24px 24px, 100% 28px;
+  position: relative;
+}
+
+.paper-texture-dark {
+  background-color: var(--paper-dark);
+  background-image: 
+    radial-gradient(circle at 20% 40%, rgba(200, 185, 160, 0.3) 0%, transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(210, 195, 170, 0.25) 0%, transparent 40%),
+    linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px;
+}
+
+.paper-texture-grid {
+  background-color: var(--paper-cream);
+  background-image: 
+    linear-gradient(rgba(31, 27, 24, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 27, 24, 0.05) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+.paper-texture-lined {
+  background-color: var(--paper-cream);
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 25px,
+    var(--soft-gray) 25px,
+    var(--soft-gray) 26px
+  );
+  line-height: 26px;
+}
+
+/* --------------------------------------------------------------------------
+   EFFECT 4: TORN-PAPER EDGE
+   Vector-sharp jagged tear edges using modern clip-path polygons.
+   Controlled micro-tears simulate physical paper ripped from a spiral notebook.
+   -------------------------------------------------------------------------- */
+.torn-edge-bottom {
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% calc(100% - 12px),
+    98% calc(100% - 6px),
+    95% calc(100% - 14px),
+    92% calc(100% - 7px),
+    88% calc(100% - 13px),
+    84% calc(100% - 5px),
+    80% calc(100% - 12px),
+    76% calc(100% - 6px),
+    72% calc(100% - 15px),
+    68% calc(100% - 8px),
+    64% calc(100% - 13px),
+    60% calc(100% - 5px),
+    56% calc(100% - 14px),
+    52% calc(100% - 7px),
+    48% calc(100% - 13px),
+    44% calc(100% - 6px),
+    40% calc(100% - 15px),
+    36% calc(100% - 8px),
+    32% calc(100% - 14px),
+    28% calc(100% - 5px),
+    24% calc(100% - 13px),
+    20% calc(100% - 7px),
+    16% calc(100% - 14px),
+    12% calc(100% - 6px),
+    8% calc(100% - 12px),
+    4% calc(100% - 5px),
+    0% calc(100% - 13px)
+  );
+  padding-bottom: calc(var(--space-md) + 10px);
+}
+
+.torn-edge-top {
+  clip-path: polygon(
+    0% 12px,
+    4% 5px,
+    8% 13px,
+    12% 6px,
+    16% 14px,
+    20% 7px,
+    24% 13px,
+    28% 5px,
+    32% 14px,
+    36% 8px,
+    40% 15px,
+    44% 6px,
+    48% 13px,
+    52% 7px,
+    56% 14px,
+    60% 5px,
+    64% 13px,
+    68% 8px,
+    72% 15px,
+    76% 6px,
+    80% 12px,
+    84% 5px,
+    88% 13px,
+    92% 7px,
+    95% 14px,
+    98% 6px,
+    100% 12px,
+    100% 100%,
+    0% 100%
+  );
+  padding-top: calc(var(--space-md) + 10px);
+}
+
+.torn-card {
+  background: var(--paper-cream);
+  border: var(--border-rough);
+  border-bottom: none;
+  filter: drop-shadow(var(--shadow-sketch));
+}
+
+/* --------------------------------------------------------------------------
+   EFFECT 5: SLIGHT ROTATION (CONTROLLED IMPERFECTION)
+   Rules:
+   - Hand-crafted feeling through subtle micro-rotations.
+   - Handmade does NOT mean chaotic. Never randomize all elements.
+   - Max deliberate angles: -2.5deg to +2.5deg.
+   - Smooth hover leveling for enhanced usability and reading focus.
+   -------------------------------------------------------------------------- */
+.rotate-slight-left {
+  transform: rotate(var(--rot-slight-left));
+}
+
+.rotate-slight-right {
+  transform: rotate(var(--rot-slight-right));
+}
+
+.rotate-subtle-left {
+  transform: rotate(var(--rot-subtle-left));
+}
+
+.rotate-subtle-right {
+  transform: rotate(var(--rot-subtle-right));
+}
+
+.rotate-pronounced-left {
+  transform: rotate(var(--rot-pronounced-left));
+}
+
+.rotate-pronounced-right {
+  transform: rotate(var(--rot-pronounced-right));
+}
+
+.rotate-none {
+  transform: rotate(0deg) !important;
+}
+
+/* Interactive leveling utility: levels element straight on hover */
+.rotate-hover-level {
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+.rotate-hover-level:hover {
+  transform: rotate(0deg) scale(1.015);
+}
+
+/* --------------------------------------------------------------------------
+   EFFECT 6: TAPE EFFECT
+   Semi-translucent washi tape with cut/tear ends and soft contact shadow.
+   -------------------------------------------------------------------------- */
+.tape-strip {
+  position: absolute;
+  width: 86px;
+  height: 22px;
+  background: var(--tape-color);
+  border-left: 2px dashed var(--tape-border);
+  border-right: 2px dashed var(--tape-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+  pointer-events: none;
+  user-select: none;
+  backdrop-filter: blur(1px);
+}
+
+.tape-strip--top-center {
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+}
+
+.tape-strip--corner-left {
+  top: -10px;
+  left: 14px;
+  transform: rotate(-6deg);
+}
+
+.tape-strip--corner-right {
+  top: -8px;
+  right: 14px;
+  transform: rotate(5deg);
+}
+
+.tape-strip--kraft {
+  background: var(--tape-kraft);
+  border-left-color: rgba(180, 140, 95, 0.5);
+  border-right-color: rgba(180, 140, 95, 0.5);
+}
+
+.tape-strip--red {
+  background: rgba(254, 226, 226, 0.85);
+  border-left-color: rgba(220, 38, 38, 0.35);
+  border-right-color: rgba(220, 38, 38, 0.35);
+}
+
+/* Quick tape helpers for container elements */
+.has-tape-top {
+  position: relative;
+}
+.has-tape-top::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 80px;
+  height: 20px;
+  background: var(--tape-color);
+  border-left: 2px dashed var(--tape-border);
+  border-right: 2px dashed var(--tape-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.has-tape-corners {
+  position: relative;
+}
+.has-tape-corners::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  width: 74px;
+  height: 20px;
+  background: var(--tape-color);
+  border-left: 2px dashed var(--tape-border);
+  border-right: 2px dashed var(--tape-border);
+  transform: rotate(-6deg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  pointer-events: none;
+}
+.has-tape-corners::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: 16px;
+  width: 74px;
+  height: 20px;
+  background: var(--tape-color);
+  border-left: 2px dashed var(--tape-border);
+  border-right: 2px dashed var(--tape-border);
+  transform: rotate(5deg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   EFFECT 7: HANDWRITTEN ANNOTATION
+   Authentic student marginalia, pencil notes, and callouts with arrows.
+   -------------------------------------------------------------------------- */
+.handwritten-annotation {
+  font-family: var(--font-annotation);
+  font-size: var(--font-size-lg);
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  line-height: var(--line-height-snug);
+  letter-spacing: -0.2px;
+}
+
+.annotation-red {
+  color: var(--cu-red);
+}
+
+.annotation-pencil {
+  color: var(--ink-pencil);
+  font-style: italic;
+}
+
+.annotation-badge {
+  font-family: var(--font-handwritten);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  padding: 3px 10px;
+  border-radius: var(--radius-rough-pill);
+  border: 1.5px solid var(--ink);
+  background: var(--paper-yellow);
+  color: var(--ink);
+  box-shadow: 1px 2px 0px var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.annotation-arrow {
+  display: inline-block;
+  width: 24px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  vertical-align: middle;
+}
+
+/* --------------------------------------------------------------------------
+   EFFECT 8: SKETCH SHADOW
+   Hard charcoal / offset ink shadows with tactile press physics.
+   -------------------------------------------------------------------------- */
+.sketch-shadow {
+  box-shadow: var(--shadow-sketch);
+}
+
+.sketch-shadow-sm {
+  box-shadow: var(--shadow-sketch-sm);
+}
+
+.sketch-shadow-lg {
+  box-shadow: var(--shadow-sketch-lg);
+}
+
+.sketch-shadow-double {
+  box-shadow: var(--shadow-sketch-double);
+}
+
+.sketch-shadow-red {
+  box-shadow: var(--shadow-sketch-red);
+}
+
+/* Tactile interactive press physics */
+.sketch-shadow-press {
+  box-shadow: var(--shadow-sketch);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.sketch-shadow-press:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 6px 0px var(--ink);
+}
+
+.sketch-shadow-press:active {
+  transform: translate(2px, 3px);
+  box-shadow: 1px 1px 0px var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   EFFECT 9: IMPERFECT CIRCLE
+   Hand-drawn wobbly circular badge or stamp with organic curvature.
+   -------------------------------------------------------------------------- */
+.imperfect-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: var(--border-rough);
+  border-radius: var(--radius-circle-imperfect);
+  background: var(--paper-cream);
+  color: var(--ink);
+  font-family: var(--font-handwritten);
+  font-weight: var(--font-weight-bold);
+  box-shadow: var(--shadow-sketch-sm);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.imperfect-circle--wobbly {
+  border-radius: var(--radius-circle-wobbly);
+}
+
+.imperfect-circle--red {
+  border-color: var(--cu-red);
+  color: var(--cu-red);
+  box-shadow: 2px 2px 0px var(--cu-red);
+}
+
+.imperfect-circle--double {
+  outline: 1.5px dashed var(--ink);
+  outline-offset: 3px;
+}
+
+.imperfect-circle--sm {
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-size-xs);
+}
+
+.imperfect-circle--lg {
+  width: 72px;
+  height: 72px;
+  font-size: var(--font-size-xl);
+}
+
+/* Freehand circled text highlight */
+.circle-highlight {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 2px solid var(--cu-red-marker);
+  border-radius: 48% 52% 49% 51% / 53% 47% 53% 47%;
+  transform: rotate(-1deg);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* --------------------------------------------------------------------------
+   EFFECT 10: MARKER HIGHLIGHT
+   Chisel-tip fluorescent/ink wash behind text with soft organic taper.
+   -------------------------------------------------------------------------- */
+.marker-highlight {
+  background: linear-gradient(
+    104deg,
+    rgba(254, 240, 138, 0) 0.5%,
+    rgba(254, 240, 138, 0.88) 2%,
+    rgba(254, 240, 138, 0.82) 97%,
+    rgba(254, 240, 138, 0) 99.5%
+  );
+  border-radius: 3px;
+  padding: 0.12em 0.4em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  color: inherit;
+}
+
+.marker-highlight--yellow {
+  background: linear-gradient(
+    104deg,
+    rgba(254, 240, 138, 0) 0.5%,
+    rgba(254, 240, 138, 0.9) 2%,
+    rgba(254, 240, 138, 0.85) 97%,
+    rgba(254, 240, 138, 0) 99.5%
+  );
+}
+
+.marker-highlight--red {
+  background: linear-gradient(
+    104deg,
+    rgba(254, 226, 226, 0) 0.5%,
+    rgba(254, 226, 226, 0.92) 2%,
+    rgba(254, 226, 226, 0.88) 97%,
+    rgba(254, 226, 226, 0) 99.5%
+  );
+}
+
+.marker-highlight--green {
+  background: linear-gradient(
+    104deg,
+    rgba(220, 252, 231, 0) 0.5%,
+    rgba(220, 252, 231, 0.9) 2%,
+    rgba(220, 252, 231, 0.85) 97%,
+    rgba(220, 252, 231, 0) 99.5%
+  );
+}
+
+.marker-highlight--gray {
+  background: linear-gradient(
+    104deg,
+    rgba(226, 221, 213, 0) 0.5%,
+    rgba(226, 221, 213, 0.85) 2%,
+    rgba(226, 221, 213, 0.8) 97%,
+    rgba(226, 221, 213, 0) 99.5%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   6. ACCESSIBILITY & PREFERS-REDUCED-MOTION
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .rotate-hover-level,
+  .sketch-shadow-press,
+  .btn-handdrawn,
+  .polaroid-card,
+  .dog-tag-collar {
+    transition: none !important;
+    transform: none !important;
+  }
+}

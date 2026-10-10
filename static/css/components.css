@@ -1,0 +1,563 @@
+/* ==========================================================================
+   CU CAMPUS DOGS — REUSABLE FIELD NOTEBOOK COMPONENT SYSTEM
+   Hand-crafted, responsive, and customizable components
+   ========================================================================== */
+
+@import url('./handmade.css');
+
+/* --------------------------------------------------------------------------
+   1. HandDrawnButton
+   -------------------------------------------------------------------------- */
+.btn-handdrawn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-hand, 'Patrick Hand', cursive, sans-serif);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  user-select: none;
+  border: 2px solid var(--ink-black, #1f1b18);
+  position: relative;
+  line-height: 1;
+}
+
+/* Variant: Marker (Red marker stroke) */
+.btn-handdrawn--marker {
+  background: var(--cu-red, #c41e3a);
+  color: #ffffff;
+  font-size: 1.35rem;
+  padding: 13px 22px;
+  border: 2.5px solid var(--ink-black, #1f1b18);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 3px 4px 0px rgba(31, 27, 24, 0.9);
+}
+.btn-handdrawn--marker::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 6px;
+  right: 6px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  pointer-events: none;
+}
+.btn-handdrawn--marker:hover {
+  background: var(--cu-red-marker, #dc2626);
+  transform: translateY(-2px);
+  box-shadow: 4px 6px 0px rgba(31, 27, 24, 0.95);
+}
+.btn-handdrawn--marker:active {
+  transform: translate(2px, 3px);
+  box-shadow: 1px 1px 0px rgba(31, 27, 24, 0.9);
+}
+
+/* Variant: Kraft Paper */
+.btn-handdrawn--kraft {
+  background: #fdf2e9;
+  color: #7c2d12;
+  font-size: 1.2rem;
+  padding: 11px 18px;
+  border-radius: 185px 25px 165px 25px / 25px 165px 25px 185px;
+  box-shadow: 2px 3px 0px rgba(31, 27, 24, 0.85);
+}
+.btn-handdrawn--kraft:hover {
+  background: #fed7aa;
+  transform: translateY(-2px);
+  box-shadow: 3px 4px 0px rgba(31, 27, 24, 0.9);
+}
+.btn-handdrawn--kraft:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px rgba(31, 27, 24, 0.9);
+}
+
+/* Variant: Outline Paper */
+.btn-handdrawn--outline {
+  background: var(--paper-cream, #fffdf7);
+  color: var(--ink-black, #1f1b18);
+  font-size: 1.1rem;
+  padding: 9px 16px;
+  border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+  box-shadow: 2px 3px 0px rgba(31, 27, 24, 0.8);
+}
+.btn-handdrawn--outline:hover {
+  background: var(--paper-yellow, #fef08a);
+  transform: translateY(-2px);
+  box-shadow: 3px 4px 0px rgba(31, 27, 24, 0.9);
+}
+.btn-handdrawn--outline:active {
+  transform: translate(1px, 2px);
+  box-shadow: 1px 1px 0px rgba(31, 27, 24, 0.9);
+}
+
+/* Variant: Charcoal Brush */
+.btn-handdrawn--charcoal {
+  background: var(--ink-black, #1f1b18);
+  color: #ffffff;
+  font-size: 1.25rem;
+  padding: 12px 24px;
+  border-radius: 240px 20px 220px 20px / 20px 220px 20px 240px;
+  box-shadow: 2px 3px 0px rgba(120, 113, 108, 0.5);
+}
+.btn-handdrawn--charcoal:hover {
+  background: #332d29;
+  transform: translateY(-2px);
+  box-shadow: 3px 5px 0px rgba(120, 113, 108, 0.6);
+}
+.btn-handdrawn--charcoal:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px rgba(120, 113, 108, 0.5);
+}
+
+/* Variant: Ghost (Marker Underline) */
+.btn-handdrawn--ghost {
+  background: transparent;
+  border: none;
+  color: var(--cu-red-marker, #dc2626);
+  font-size: 1.15rem;
+  padding: 6px 4px;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-decoration-thickness: 2px;
+}
+.btn-handdrawn--ghost:hover {
+  color: var(--cu-red, #c41e3a);
+  transform: scale(1.03);
+}
+
+.btn-handdrawn__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-handdrawn__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   2. PaperNote
+   -------------------------------------------------------------------------- */
+.paper-note {
+  border: 2px solid var(--ink-black, #1f1b18);
+  padding: 18px 20px;
+  position: relative;
+  box-shadow: 3px 4px 0px rgba(31, 27, 24, 0.85);
+  font-family: var(--font-hand, 'Patrick Hand', cursive, sans-serif);
+}
+
+.paper-note--kraft {
+  background: var(--paper-kraft, #eddcc4);
+  border-radius: 185px 25px 165px 25px / 25px 165px 25px 185px;
+}
+.paper-note--yellow {
+  background: var(--paper-yellow, #fef08a);
+  border-radius: 2px 4px 3px 5px;
+  box-shadow: 4px 5px 0px rgba(31, 27, 24, 0.7);
+}
+.paper-note--cream {
+  background: var(--paper-cream, #fffdf7);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+.paper-note--lined {
+  background: var(--paper-cream, #fffdf7);
+  border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 26px,
+    #e7e0d0 26px,
+    #e7e0d0 27px
+  );
+  line-height: 27px;
+}
+.paper-note--grid {
+  background: var(--paper-cream, #fffdf7);
+  border-radius: 8px;
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Fasteners */
+.paper-note__pin-red {
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  width: 18px;
+  height: 18px;
+  background: var(--cu-red-marker, #dc2626);
+  border: 1.5px solid var(--ink-black, #1f1b18);
+  border-radius: 50%;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.3);
+}
+.paper-note__tape {
+  position: absolute;
+  top: -10px;
+  left: 35%;
+  width: 80px;
+  height: 20px;
+  background: var(--tape-color, rgba(254, 243, 199, 0.78));
+  border-left: 2px dashed rgba(217, 180, 130, 0.5);
+  border-right: 2px dashed rgba(217, 180, 130, 0.5);
+  transform: rotate(-1.5deg);
+  pointer-events: none;
+}
+.paper-note__paperclip {
+  position: absolute;
+  top: -12px;
+  right: 25px;
+  width: 18px;
+  height: 38px;
+  pointer-events: none;
+}
+
+.paper-note__header {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  border-bottom: 1.5px dashed var(--ink-faint, #78716c);
+  padding-bottom: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   3. DogPhoto (Polaroid Frame)
+   -------------------------------------------------------------------------- */
+.dog-photo-polaroid {
+  background: var(--paper-cream, #fffdf7);
+  padding: 12px 12px 24px 12px;
+  border: 2px solid var(--ink-black, #1f1b18);
+  border-radius: 4px 6px 3px 5px;
+  box-shadow: 3px 4px 0px rgba(31, 27, 24, 0.85);
+  position: relative;
+  max-width: 360px;
+  width: 100%;
+  transition: transform 0.25s ease;
+}
+.dog-photo-polaroid:hover {
+  transform: rotate(0deg) scale(1.01);
+}
+
+.dog-photo__tape-left {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  width: 80px;
+  height: 22px;
+  background: var(--tape-color, rgba(254, 243, 199, 0.78));
+  border-left: 2px dashed rgba(217, 180, 130, 0.5);
+  border-right: 2px dashed rgba(217, 180, 130, 0.5);
+  transform: rotate(-6deg);
+  z-index: 5;
+}
+.dog-photo__tape-right {
+  position: absolute;
+  top: -8px;
+  right: 20px;
+  width: 80px;
+  height: 22px;
+  background: var(--tape-color, rgba(254, 243, 199, 0.78));
+  border-left: 2px dashed rgba(217, 180, 130, 0.5);
+  border-right: 2px dashed rgba(217, 180, 130, 0.5);
+  transform: rotate(5deg);
+  z-index: 5;
+}
+
+.dog-photo__img-box {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  position: relative;
+  background: #e2d9c8;
+  border: 1.5px solid var(--ink-black, #1f1b18);
+  border-radius: 2px;
+}
+.dog-photo__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.dog-photo__crown {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 40px;
+  height: 30px;
+  pointer-events: none;
+  filter: drop-shadow(1px 1px 0px rgba(0,0,0,0.3));
+}
+.dog-photo__heart {
+  position: absolute;
+  bottom: 18px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  fill: var(--cu-red-marker, #dc2626);
+  pointer-events: none;
+  filter: drop-shadow(1px 1px 0px rgba(0,0,0,0.25));
+}
+
+.dog-photo__caption {
+  font-family: var(--font-hand, 'Patrick Hand', cursive, sans-serif);
+  font-size: 1.25rem;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+  color: var(--ink-black, #1f1b18);
+}
+
+/* --------------------------------------------------------------------------
+   4. DogTag
+   -------------------------------------------------------------------------- */
+.dog-tag-collar {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+.dog-tag-collar:hover {
+  transform: rotate(4deg) scale(1.04);
+}
+.dog-tag-collar__img {
+  width: 72px;
+  height: auto;
+  filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.25));
+}
+
+.dog-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 16px;
+  background: transparent;
+  border: 2.5px solid var(--cu-red-marker, #dc2626);
+  border-radius: 999px;
+  font-family: var(--font-hand, 'Patrick Hand', cursive, sans-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--cu-red-marker, #dc2626);
+  box-shadow: inset 0 0 4px rgba(220, 38, 38, 0.15);
+  letter-spacing: 0.5px;
+}
+
+/* --------------------------------------------------------------------------
+   5. HandDrawnHeading
+   -------------------------------------------------------------------------- */
+.heading-handdrawn {
+  font-family: var(--font-script, 'Caveat', cursive, sans-serif);
+  color: var(--ink-black, #1f1b18);
+  line-height: 0.95;
+  display: inline-block;
+  position: relative;
+  margin: 0;
+}
+.heading-handdrawn--xl { font-size: 3.8rem; font-weight: 700; }
+.heading-handdrawn--lg { font-size: 2.8rem; font-weight: 700; }
+.heading-handdrawn--md { font-size: 2.1rem; font-weight: 700; }
+.heading-handdrawn--sm { font-size: 1.5rem; font-weight: 700; }
+
+.heading-handdrawn__sunburst {
+  position: absolute;
+  top: -10px;
+  right: -24px;
+  width: 32px;
+  height: 32px;
+  stroke: var(--cu-red-marker, #dc2626);
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+  pointer-events: none;
+}
+.heading-handdrawn__underline {
+  display: block;
+  width: 100%;
+  height: 4px;
+  background: var(--cu-red-marker, #dc2626);
+  border-radius: 999px;
+  margin-top: 2px;
+  transform: rotate(-0.5deg);
+}
+
+/* --------------------------------------------------------------------------
+   6. Doodle
+   -------------------------------------------------------------------------- */
+.doodle-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  user-select: none;
+}
+.doodle-img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.1));
+}
+.doodle-caption {
+  font-family: var(--font-note, 'Architects Daughter', cursive, sans-serif);
+  font-size: 0.95rem;
+  color: var(--ink-faint, #78716c);
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   7. LocationNote
+   -------------------------------------------------------------------------- */
+.location-note-card {
+  background: var(--paper-cream, #fffdf7);
+  border: 2px solid var(--ink-black, #1f1b18);
+  border-radius: 185px 25px 165px 25px / 25px 165px 25px 185px;
+  padding: 18px;
+  box-shadow: 3px 4px 0px rgba(31, 27, 24, 0.85);
+  position: relative;
+}
+.location-note-card__tape {
+  position: absolute;
+  top: -10px;
+  left: 25%;
+  width: 80px;
+  height: 20px;
+  background: var(--tape-color, rgba(254, 243, 199, 0.78));
+  border-left: 2px dashed rgba(217, 180, 130, 0.5);
+  border-right: 2px dashed rgba(217, 180, 130, 0.5);
+  transform: rotate(-2deg);
+}
+.location-note-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  border-bottom: 1.5px dashed var(--ink-faint, #78716c);
+  padding-bottom: 6px;
+}
+.location-note-card__title {
+  font-family: var(--font-hand, 'Patrick Hand', cursive, sans-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--cu-red-marker, #dc2626);
+}
+.location-note-card__time {
+  font-family: var(--font-hand, 'Patrick Hand', cursive, sans-serif);
+  font-size: 1.1rem;
+  color: var(--ink-faint, #78716c);
+}
+.location-note-card__place {
+  font-family: var(--font-hand, 'Patrick Hand', cursive, sans-serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--ink-black, #1f1b18);
+}
+.location-note-card__activity {
+  font-family: var(--font-note, 'Architects Daughter', cursive, sans-serif);
+  font-size: 1.1rem;
+  color: var(--ink-pencil, #44403c);
+  margin-bottom: 12px;
+}
+.location-note-card__map-box {
+  width: 100%;
+  height: 210px;
+  border: 2px solid var(--ink-black, #1f1b18);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  background: #f4efe1;
+}
+.location-note-card__map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.location-note-card__sticky {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--paper-yellow, #fef08a);
+  border: 1.5px solid #ca8a04;
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-family: var(--font-hand, 'Patrick Hand', cursive, sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+  transform: rotate(2deg);
+  max-width: 130px;
+}
+
+/* --------------------------------------------------------------------------
+   8. StatusSticker
+   -------------------------------------------------------------------------- */
+.status-sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-hand, 'Patrick Hand', cursive, sans-serif);
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+  box-shadow: 1px 2px 0px rgba(0,0,0,0.3);
+  font-size: 1.05rem;
+  user-select: none;
+}
+.status-sticker--green {
+  background: var(--sage-green, #dcfce7);
+  color: var(--sage-green-dark, #15803d);
+}
+.status-sticker--yellow {
+  background: #fef9c3;
+  color: #854d0e;
+}
+.status-sticker--red {
+  background: #fee2e2;
+  color: #991b1b;
+}
+.status-sticker--stamp {
+  border: 2px dashed currentColor;
+  border-radius: 6px;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+
+/* --------------------------------------------------------------------------
+   9. HandDrawnDivider
+   -------------------------------------------------------------------------- */
+.handdrawn-divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 18px 0;
+  overflow: hidden;
+}
+.handdrawn-divider img {
+  max-width: 100%;
+  height: auto;
+  max-height: 28px;
+  object-fit: contain;
+}
+.handdrawn-divider--sketch-line {
+  height: 2px;
+  background: var(--ink-faint, #78716c);
+  border-radius: 999px;
+  transform: rotate(-0.3deg);
+}
+.handdrawn-divider--wavy-red {
+  height: 6px;
+  background-image: radial-gradient(circle at 10px 0, transparent 0, transparent 4px, var(--cu-red-marker, #dc2626) 4px, var(--cu-red-marker, #dc2626) 6px, transparent 6px);
+  background-size: 20px 6px;
+}
