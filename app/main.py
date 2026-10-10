@@ -1,6 +1,6 @@
 import os
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, status
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -87,177 +87,19 @@ async def health_check():
         "version": APP_VERSION,
     }
 
-@app.get("/", response_class=HTMLResponse, tags=["System"])
-async def system_index():
-    """System overview and interactive workbench link."""
-    return """<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chandigarh University - Campus Dog Digital Identity System</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #0f172a;
-            color: #f8fafc;
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-        .card {
-            background: #1e293b;
-            border-radius: 16px;
-            border: 1px solid #334155;
-            padding: 32px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
-        }
-        .badge {
-            display: inline-block;
-            background: #dc2626;
-            color: white;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            margin-bottom: 16px;
-        }
-        h1 {
-            font-size: 26px;
-            font-weight: 800;
-            margin: 0 0 12px 0;
-            letter-spacing: -0.5px;
-            color: #ffffff;
-        }
-        p {
-            font-size: 15px;
-            color: #94a3b8;
-            line-height: 1.6;
-            margin: 0 0 24px 0;
-        }
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-        .link-card {
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 16px;
-            text-decoration: none;
-            color: #f8fafc;
-            transition: all 0.2s ease;
-        }
-        .link-card:hover {
-            border-color: #38bdf8;
-            transform: translateY(-2px);
-        }
-        .link-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: #38bdf8;
-            margin-bottom: 6px;
-        }
-        .link-desc {
-            font-size: 12px;
-            color: #64748b;
-        }
-        .premium-emoji {
-            display: inline-block;
-            vertical-align: -0.2em;
-            width: 1.25em;
-            height: 1.25em;
-            object-fit: contain;
-            pointer-events: none;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
-            margin-right: 4px;
-        }
-        .tag-demo {
-            background: #090d16;
-            border-radius: 10px;
-            padding: 16px;
-            border: 1px solid #1e293b;
-        }
-        .tag-title {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #e2e8f0;
-            margin-bottom: 10px;
-        }
-        .code-chip {
-            display: inline-block;
-            background: #1e293b;
-            color: #fbbf24;
-            font-family: monospace;
-            padding: 4px 8px;
-            border-radius: 6px;
-            margin-right: 8px;
-            margin-bottom: 6px;
-            text-decoration: none;
-            font-size: 13px;
-        }
-        .code-chip:hover {
-            background: #334155;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="card">
-            <span class="badge">Backend Active</span>
-            <h1>Chandigarh University Campus Dog Digital Identity System</h1>
-            <p>
-                Core high-performance backend serving the physical QR resolution system, public dog profile and sighting reports, 
-                and authenticated administrative controls for dog registration, tag management, and animal welfare.
-            </p>
+@app.get("/", tags=["Public"])
+async def root_redirect(request: Request):
+    """
+    Public root entrypoint:
+    Directly redirects public visitors to the official campus dog profile (Bruno / CU-DOG-024).
+    If an admin is logged in, redirects directly into the Admin Management Portal (/admin).
+    """
+    admin = get_optional_admin(request)
+    if admin:
+        return RedirectResponse(url="/admin", status_code=status.HTTP_303_SEE_OTHER)
+    return RedirectResponse(url="/dog/CU-DOG-024", status_code=status.HTTP_303_SEE_OTHER)
 
-            <div class="links-grid">
-                <a href="/admin" class="link-card" style="border-color: #3b82f6;">
-                    <div class="link-title" style="color: #60a5fa;"><img src="/static/assets/emojis/crown.webp" class="premium-emoji" alt="Admin" draggable="false" /> Admin Management Portal</div>
-                    <div class="link-desc">Manage dogs, edit profiles, register tags, view sightings, and resolve welfare reports.</div>
-                </a>
-                <a href="/dog/CU-DOG-024" class="link-card" style="border-color: #f59e0b;">
-                    <div class="link-title" style="color: #f59e0b;"><img src="/static/assets/emojis/notebook.webp" class="premium-emoji" alt="Notebook" draggable="false" /> Bruno's Field Notebook</div>
-                    <div class="link-desc">Live hand-drawn digital profile for CU-DOG-024.</div>
-                </a>
-                <a href="/components" class="link-card" style="border-color: #dc2626;">
-                    <div class="link-title" style="color: #ef4444;"><img src="/static/assets/emojis/palette.webp" class="premium-emoji" alt="Palette" draggable="false" /> Component Showcase &amp; Assets</div>
-                    <div class="link-desc">Interactive workbench of all 9 hand-drawn field notebook visual components and asset catalog.</div>
-                </a>
-                <a href="/docs" class="link-card">
-                    <div class="link-title"><img src="/static/assets/emojis/lightning.webp" class="premium-emoji" alt="API Docs" draggable="false" /> Interactive Swagger UI</div>
-                    <div class="link-desc">Test all public and admin endpoints directly in your browser.</div>
-                </a>
-                <a href="/t/CU-TAG-8F42K9" class="link-card">
-                    <div class="link-title"><img src="/static/assets/emojis/tag.webp" class="premium-emoji" alt="Collar Tag" draggable="false" /> Permanent QR Scan</div>
-                    <div class="link-desc">Resolves CU-TAG-8F42K9 directly to Bruno's profile.</div>
-                </a>
-            </div>
 
-            <div class="tag-demo">
-                <div class="tag-title">Demo Physical QR Tag Links to Test:</div>
-                <a href="/t/CU-TAG-8F42K9?format=json" class="code-chip">/t/CU-TAG-8F42K9 (Bruno)</a>
-                <a href="/t/CU-TAG-9M31P2?format=json" class="code-chip">/t/CU-TAG-9M31P2 (Milo)</a>
-                <a href="/t/CU-TAG-4K77X1?format=json" class="code-chip">/t/CU-TAG-4K77X1 (Luna)</a>
-                <a href="/t/CU-TAG-SPAREE?format=json" class="code-chip">/t/CU-TAG-SPAREE (Unassigned)</a>
-                <a href="/t/CU-TAG-NONEXIST?format=json" class="code-chip">/t/CU-TAG-NONEXIST (Invalid)</a>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-"""
 
 @app.get("/components", response_class=HTMLResponse, tags=["Design System"])
 async def components_showcase():

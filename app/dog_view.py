@@ -298,7 +298,7 @@ def render_handwritten_dog_profile(dog: Dict[str, Any], admin_user: Optional[Dic
     else:
         floating_admin_bar = ""
         header_admin_controls = f"""
-        <a href="/admin/login?next=/dog/{clean_uid}" class="staff-login-chip" title="Admin Login">
+        <a href="/admin" class="staff-login-chip" id="admin-login-link" title="Admin Login — Access DOGCU Staff Panel">
             <span class="staff-login-icon">{p_emoji('lock', 'Admin', size='xs')}</span>
             <span class="staff-login-label">Admin Login</span>
             <span style="display:none;" aria-hidden="true">Staff Login</span>
